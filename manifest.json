@@ -1,0 +1,24 @@
+{
+"manifest_version": 2,
+"name": "LazyRequest",
+"version": "1.0",
+
+"description": "Takes a request you have just done and creates a ruby file",
+"icons": {
+	"48":"icon/icon.jpg",
+	"96":"icon/icon.jpg"
+},
+"permissions": [
+	"webRequest",
+	"<all_urls>",
+	"storage"
+],
+"browser_action": {
+	"default_icon":"icon/icon.jpg",
+	"default_title":"LazyRequest",
+	"default_popup":"popup/showInfo.html"
+},
+"background": {
+	"scripts":["background.js"]
+}
+}
