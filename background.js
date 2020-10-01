@@ -1,23 +1,30 @@
-var gettingStoredInfo = browser.storage.local.get(null);
-
-browser.storage.onChanged.addListener(changedData => {
-	if(changedData.toggle.newValue == "on") {
+var storedInfo = browser.storage.local.get(null);
+var record = false;
+browser.storage.onChanged.addListener(storedInfo => {
+	if(typeof(storedInfo.toggle) != "undefined" && storedInfo.toggle.newValue == "on"){
 		toggleOn();
-	} else {
+	} else if(typeof(storedInfo.toggle) != "undefined" && storedInfo.toggle.newValue == "off"){
 		toggleOff();
 	}
 });
 
 function toggleOn(){
-		
+	record = true;	
 }
-
 function toggleOff(){
-	
+	record = false;
 }
 
 function logURL(requestDetails) {
-	console.log("Logging\t" + requestDetails);
+	if(record) {
+		console.log('ping');
+		storedInfo.then((results) => {
+			for(let [key, value] of Object.entries(results)) {
+				if (value == "json") {
+				}
+			}
+		});
+	}
 }
 
 browser.webRequest.onBeforeRequest.addListener(

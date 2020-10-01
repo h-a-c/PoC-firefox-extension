@@ -1,42 +1,41 @@
 document.getElementById("recordIcon").addEventListener("click", recordClick);
+init();
 
 function recordClick() {
 	var iconClass = document.getElementById("recordIcon").className
 	if(iconClass == "fa fa-toggle-off") {
-		document.getElementById("recordIcon").className = "fa fa-toggle-on";
-		browser.storage.local.set({"toggle":"on"});
+		toggleOn();
 	} else {
-		document.getElementById("recordIcon").className = "fa fa-toggle-off";
-		browser.storage.local.set({"toggle":"off"});
+		toggleOff();
 	}
 }
 
-init();
+function toggleOn() {
+	document.getElementById("recordIcon").className = "fa fa-toggle-on";
+	document.getElementById("state").innerHTML = "running";
+	browser.storage.local.set({"toggle":"on"});
+	browser.storage.local.set({"json":"{json here}"});
+}
+
+
+function toggleOff() {
+	document.getElementById("recordIcon").className = "fa fa-toggle-off";
+	document.getElementById("state").innerHTML = "stopped";
+	browser.storage.local.set({"toggle":"off"});
+}
 
 function init() {
 	var storedItems = browser.storage.local.get(null);
 	storedItems.then((results) => {
 		for(let [key,value] of Object.entries(results)){
 			if(key == "toggle") {
-				viewRequestList(value);
 				if (value == "on") {
-					document.getElementById("recordIcon").className = "fa fa-toggle-on";
-					document.getElementById("requestList").style.visibility = "";
+					toggleOn();
 				} else {
-					document.getElementById("recordIcon").className = "fa fa-toggle-off";
-					document.getElementById("requestList").style.visibility = "hidden";
+					toggleOff();
 				}
 
 			}
 		}
 	});
-}
-
-function viewRequestList(state){
-	console.log(document.getElementById("requestList").style);
-	if(state == "on") {
-	}
-	if(state == "off") {
-
-	}
 }
