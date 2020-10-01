@@ -14,7 +14,6 @@ function toggleOn() {
 	document.getElementById("recordIcon").className = "fa fa-toggle-on";
 	document.getElementById("state").innerHTML = "running";
 	browser.storage.local.set({"toggle":"on"});
-	browser.storage.local.set({"json":"{json here}"});
 }
 
 

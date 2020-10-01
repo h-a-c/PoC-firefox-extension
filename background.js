@@ -1,5 +1,6 @@
 var storedInfo = browser.storage.local.get(null);
 var record = false;
+browser.storage.local.set({"request":JSON.stringify([])})
 browser.storage.onChanged.addListener(storedInfo => {
 	if(typeof(storedInfo.toggle) != "undefined" && storedInfo.toggle.newValue == "on"){
 		toggleOn();
@@ -20,7 +21,12 @@ function logURL(requestDetails) {
 		console.log('ping');
 		storedInfo.then((results) => {
 			for(let [key, value] of Object.entries(results)) {
-				if (value == "json") {
+				if (key == "request") {
+					var requestList = JSON.parse(value);	
+					if(requestList.length < 50) {
+						requestList.push(requestDetails);
+						browser.storage.local.set({"request":JSON.stringify(requestList)});
+					}
 				}
 			}
 		});
