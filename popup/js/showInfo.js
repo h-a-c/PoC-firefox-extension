@@ -18,13 +18,25 @@ function init() {
 	storedItems.then((results) => {
 		for(let [key,value] of Object.entries(results)){
 			if(key == "toggle") {
+				viewRequestList(value);
 				if (value == "on") {
 					document.getElementById("recordIcon").className = "fa fa-toggle-on";
+					document.getElementById("requestList").style.visibility = "";
 				} else {
 					document.getElementById("recordIcon").className = "fa fa-toggle-off";
+					document.getElementById("requestList").style.visibility = "hidden";
 				}
 
 			}
 		}
 	});
+}
+
+function viewRequestList(state){
+	console.log(document.getElementById("requestList").style);
+	if(state == "on") {
+	}
+	if(state == "off") {
+
+	}
 }

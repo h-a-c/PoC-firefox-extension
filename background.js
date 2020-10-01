@@ -9,7 +9,7 @@ browser.storage.onChanged.addListener(changedData => {
 });
 
 function toggleOn(){
-	
+		
 }
 
 function toggleOff(){
