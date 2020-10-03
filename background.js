@@ -18,11 +18,10 @@ function toggleOff(){
 
 function logURL(requestDetails) {
 	if(record) {
-		console.log('ping');
-		storedInfo.then((results) => {
+		browser.storage.local.get(null).then((results) => {
 			for(let [key, value] of Object.entries(results)) {
 				if (key == "request") {
-					var requestList = JSON.parse(value);	
+					var requestList = JSON.parse(value);
 					if(requestList.length < 50) {
 						requestList.push(requestDetails);
 						browser.storage.local.set({"request":JSON.stringify(requestList)});
