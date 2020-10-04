@@ -1,4 +1,5 @@
 document.getElementById("recordIcon").addEventListener("click", recordClick);
+document.getElementById("cleanIcon").addEventListener("click", trashClick);
 init();
 
 browser.storage.onChanged.addListener(x => {
@@ -7,6 +8,10 @@ browser.storage.onChanged.addListener(x => {
 		updateList(newRequest);
 	}
 });
+
+function trashClick() {
+	browser.storage.local.set({"request":JSON.stringify([])});
+}
 
 function getDiff(request) {
 	var newValue = JSON.parse(request.newValue);
