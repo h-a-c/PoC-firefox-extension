@@ -3,7 +3,6 @@ init();
 
 browser.storage.onChanged.addListener(x => {
 	if(typeof(x.request) != "undefined") {
-		console.log("request updated");
 		updateList();
 	}
 });
@@ -54,6 +53,9 @@ function init() {
 					toggleOff();
 				}
 
+			}
+			if(key == "requests") {
+				updateList();		
 			}
 		}
 	});
