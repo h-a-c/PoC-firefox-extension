@@ -12,12 +12,11 @@ function updateList() {
 	var tr = document.createElement("tr");			// Create a <tr> node
 	var textnode1 = document.createTextNode("GET");         // Create a text node
 	var textnode2 = document.createTextNode("Google.com"); // Create second text node
-	th.appendChild(tr);
-	th.appendChild(textnode1);
-	th.appendChild(tr)
-	th.appendChild(textnode2);
-	console.log(th);
-	document.getElementById("requestList").appendChild(th);
+	tr.appendChild(th);
+	tr.appendChild(textnode1);
+	tr.appendChild(th)
+	tr.appendChild(textnode2);
+	document.getElementById("requestList").appendChild(tr);
 }
 
 function recordClick() {
