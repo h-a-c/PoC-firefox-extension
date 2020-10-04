@@ -1,6 +1,26 @@
 document.getElementById("recordIcon").addEventListener("click", recordClick);
 init();
 
+browser.storage.onChanged.addListener(x => {
+	if(typeof(x.request) != "undefined") {
+		console.log("request updated");
+		updateList();
+	}
+});
+
+function updateList() {
+	var th = document.createElement("th");                 // Create a <th> node
+	var tr = document.createElement("tr");			// Create a <tr> node
+	var textnode1 = document.createTextNode("GET");         // Create a text node
+	var textnode2 = document.createTextNode("Google.com"); // Create second text node
+	th.appendChild(tr);
+	th.appendChild(textnode1);
+	th.appendChild(tr)
+	th.appendChild(textnode2);
+	console.log(th);
+	document.getElementById("requestList").appendChild(th);
+}
+
 function recordClick() {
 	var iconClass = document.getElementById("recordIcon").className
 	if(iconClass == "fa fa-toggle-off") {
