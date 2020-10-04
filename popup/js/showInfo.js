@@ -5,7 +5,11 @@ init();
 browser.storage.onChanged.addListener(x => {
 	if(typeof(x.request) != "undefined") {
 		var newRequest = getDiff(x.request);
-		updateList(newRequest);
+		if (newRequest == false) {
+			return;
+		} else {
+			updateList(newRequest);
+		}
 	}
 });
 
@@ -15,6 +19,9 @@ function trashClick() {
 
 function getDiff(request) {
 	var newValue = JSON.parse(request.newValue);
+	if(request.newValue == "[]") {
+		return false;
+	}
 	return newValue[newValue.length-1];
 }
 
