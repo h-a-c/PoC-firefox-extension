@@ -3,20 +3,24 @@ init();
 
 browser.storage.onChanged.addListener(x => {
 	if(typeof(x.request) != "undefined") {
-		updateList();
+		var newRequest = getDiff(x.request);
+		updateList(newRequest);
 	}
 });
 
-function updateList() {
-	var th = document.createElement("th");                 // Create a <th> node
-	var tr = document.createElement("tr");			// Create a <tr> node
-	var textnode1 = document.createTextNode("GET");         // Create a text node
-	var textnode2 = document.createTextNode("Google.com"); // Create second text node
-	tr.appendChild(th);
-	tr.appendChild(textnode1);
-	tr.appendChild(th)
-	tr.appendChild(textnode2);
-	document.getElementById("requestList").appendChild(tr);
+function getDiff(request) {
+	var newValue = JSON.parse(request.newValue);
+	return newValue[newValue.length-1];
+}
+
+function updateList(request) {
+	var table = document.getElementById("requestTable");
+	var row = table.insertRow(-1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+	cell1.innerHTML = request.method;
+	cell2.innerHTML = request.originUrl;
 }
 
 function recordClick() {
@@ -53,8 +57,11 @@ function init() {
 				}
 
 			}
-			if(key == "requests") {
-				updateList();		
+			if(key == "request") {
+				var requestList = JSON.parse(value);
+				for(i = 0; i < requestList.length; i++) {
+					updateList(requestList[i]);
+				}
 			}
 		}
 	});
